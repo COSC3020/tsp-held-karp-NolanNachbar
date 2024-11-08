@@ -8,7 +8,6 @@
 //         // reduce the set of cities that are unvisited by one  (the old start), set the new start, add on the distance from old start to new start
 //         heldKarp(cities - start, city) + distance from start to city
 
-
 function tsp_hk(distance_matrix) {
     return -1;
 }
