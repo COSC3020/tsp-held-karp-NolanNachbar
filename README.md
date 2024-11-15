@@ -47,5 +47,15 @@ What is the worst-case asymptotic time complexity of your implementation? What
 is the worst-case asymptotic memory complexity? Add your answer, including your
 reasoning, to this markdown file.
 
+I wrote the non dynamic version using the provided pseudocode but I was stuck on using memoization so I looked at this: 
+https://github.com/COSC3020/tsp-held-karp-Assel-Aljazwe/blob/Code-%26-Analysis/code.js
+I used the idea of ```1 << n``` from it which it looks like is called bitmasking or bit shifting. I don't remeber seeing this before so I looked it up https://rambutan.readthedocs.io/projects/librambutan/en/latest/lang/cpp/bitshift.html
+https://www.geeksforgeeks.org/left-shift-bitwise-operator-in-javascript/
+I also used the general outline of his code because of the memoization but I tried to write it independent from his code. I used a 2d array instead of a map like he did for the memoiztion part. 
 
+https://stackoverflow.com/questions/29285897/difference-between-for-in-and-for-of-statements
+
+I used this to help me understand how to go about the problem. 
 https://www.geeksforgeeks.org/travelling-salesman-problem-using-dynamic-programming/
+
+I certify that I have listed all sources used to complete this exercise, including the use of any Large Language Models. All of the work is my own, except where stated otherwise. I am aware that plagiarism carries severe penalties and that if plagiarism is suspected, charges may be filed against me without prior notice.
