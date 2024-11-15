@@ -90,8 +90,9 @@ I wrote the non dynamic version using the provided pseudocode but I was stuck on
 
 https://github.com/COSC3020/tsp-held-karp-Assel-Aljazwe/blob/Code-%26-Analysis/code.js
 
-I used the idea of ```1 << n``` from it which it looks like is called bitmasking or bit shifting. I don't remeber seeing this before so I looked it up https://rambutan.readthedocs.io/projects/librambutan/en/latest/lang/cpp/bitshift.html
-
+I used the idea of ```1 << n``` from it which it looks like is called bitmasking or bit shifting. I don't remeber seeing this before so I looked it up 
+https://rambutan.readthedocs.io/projects/librambutan/en/latest/lang/cpp/bitshift.html
+https://dev.to/somedood/bitmasks-a-very-esoteric-and-impractical-way-of-managing-booleans-1hlf
 https://www.geeksforgeeks.org/left-shift-bitwise-operator-in-javascript/
 
 I also used the general outline of his code because of the memoization but I tried to write it independent from his code. I know that because I used his outline our code might look similar so I used a 2d array instead of a map like he did for the memoiztion part. 
