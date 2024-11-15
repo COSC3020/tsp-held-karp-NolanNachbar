@@ -97,8 +97,6 @@ https://www.geeksforgeeks.org/left-shift-bitwise-operator-in-javascript/
 
 I also used the general outline of his code because of the memoization but I tried to write it independent from his code. I know that because I used his outline our code might look similar so I used a 2d array instead of a map like he did for the memoiztion part. 
 
-https://stackoverflow.com/questions/29285897/difference-between-for-in-and-for-of-statements
-
 I used this to help me understand the basics of the problem. 
 https://www.geeksforgeeks.org/travelling-salesman-problem-using-dynamic-programming/
 
