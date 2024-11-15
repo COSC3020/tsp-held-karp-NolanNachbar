@@ -8,12 +8,13 @@
 //         // reduce the set of cities that are unvisited by one  (the old start), set the new start, add on the distance from old start to new start
 //         heldKarp(cities - start, city) + distance from start to city
 
+
 function tsp_hk(distance_matrix) {
     let n = distance_matrix.length;
 
     if (n <= 1) return 0; // handle cases like the first two test cases
 
-    // I had to look up how 1 << n would work but it gives the number of possible subsets of cities
+    // I had to look up how something like 1 << n would work
     
     // this is a 2d array to store the already computed results; the first dimension is the current city
     // and the second is the bitmask representation of whether or not the city has been visited
@@ -23,8 +24,8 @@ function tsp_hk(distance_matrix) {
     function heldKarp(citiesLeft, currentCity) {
         let bitmask = 0;
         
-        for (const city of citiesLeft) {
-            bitmask |= 1 << city;
+        for (const city in citiesLeft) {
+            bitmask |= 1 << citiesLeft[city];
         }
 
         // if it has already been done don't recompute it
@@ -52,8 +53,7 @@ function tsp_hk(distance_matrix) {
 
     for (let start = 0; start < n; start++) {
         const citiesLeft = Array.from({ length: n }, (_, i) => i).filter((city) => city !== start);
-        const cost = heldKarp(citiesLeft, start);
-        minTour = Math.min(minTourCost, cost);
+        minTour = Math.min(minTourCost, heldKarp(citiesLeft, start));
     }
 
     return minTour;
