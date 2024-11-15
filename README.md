@@ -81,9 +81,9 @@ function tsp_hk(distance_matrix) {
 ```
 Adding those up:
 
-For time complexity, we have $\Theta(n * (n + n * 2^n)) \in \Theta(n^2 * 2^n))$.
+For time complexity, we have $\Theta(n * (n + n * 2^n)) \in \Theta(n^2 * 2^n)$.
 
-For memory complexity, we have $\Theta(2^n + n * (n + 2^n)) \in \Theta(n * 2^n))$.
+For memory complexity, we have $\Theta(2^n + n * (n + 2^n)) \in \Theta(n * 2^n)$.
 
 
 I wrote the non dynamic version using the provided pseudocode but I was stuck on using memoization so I looked at this: 
