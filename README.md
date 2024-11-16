@@ -52,7 +52,7 @@ Recall my code (comments and line spaces removed for brevity):
 function tsp_hk(distance_matrix) {
     let n = distance_matrix.length;
     if (n <= 1) return 0;
-    const memo = Array.from({ length: n }, () => Array(1 << n).fill(-1)); // memory complexity of $\Theta(2^n)$
+    const memo = Array.from({ length: n }, () => Array(1 << n).fill(-1)); // memory complexity of $\Theta(n * 2^n)$ because it's an nx2^n array
     function heldKarp(citiesLeft, currentCity) {
         let bitmask = 0;
         for (const city in citiesLeft) {  // Time  complexity of $\Theta(n)$
@@ -83,7 +83,7 @@ Adding those up:
 
 For time complexity, we have $\Theta(n * (n + n * 2^n)) \in \Theta(n^2 * 2^n)$.
 
-For memory complexity, we have $\Theta(2^n + n * (n + 2^n)) \in \Theta(n * 2^n)$.
+For memory complexity, we have $\Theta(n * 2^n + n * (n + 2^n)) \in \Theta(n * 2^n)$.
 
 
 I wrote the non dynamic version using the provided pseudocode but I was stuck on using memoization so I looked at this: 
