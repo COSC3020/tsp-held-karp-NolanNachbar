@@ -90,6 +90,13 @@ For time complexity, we have $\Theta(n * (n + 2^n * (n + n^2))) \in \Theta(n^3 *
 
 For memory complexity, we have $\Theta(n * 2^n + n) \in \Theta(n * 2^n)$.
 
+- References
+
+Most recent edit: I removed the bitmasking and replacing with a map like I did in my local search solution:
+
+https://github.com/COSC3020/tsp-local-search-NolanNachbar/tree/NolanNachbar-patch-1
+
+
 
 I wrote the non dynamic version using the provided pseudocode but I was stuck on using memoization so I looked at this: 
 
