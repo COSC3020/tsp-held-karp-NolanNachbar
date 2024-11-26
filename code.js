@@ -1,60 +1,34 @@
-// // cities is the set of cities not visited so far, including start
-// heldKarp(cities, start)
-//   if |cities| == 2
-//     return length of tour that starts at start, goes directly to other city in cities
-//   else
-//     return the minimum of
-//       for each city in cities, unless the city is start
-//         // reduce the set of cities that are unvisited by one  (the old start), set the new start, add on the distance from old start to new start
-//         heldKarp(cities - start, city) + distance from start to city
-
-
 function tsp_hk(distance_matrix) {
     let n = distance_matrix.length;
-
     if (n <= 1) return 0; // handle cases like the first two test cases
-
-    // I had to look up how something like 1 << n would work
-    
-    // this is a 2d array to store the already computed results; the first dimension is the current city
-    // and the second is the bitmask representation of whether or not the city has been visited
-    const memo = Array.from({ length: n }, () => Array(1 << n).fill(-1));
-
-    // heldKarp is the recursive function that solves the TSP using dynamic programming
+    let memo = new Map();
     function heldKarp(citiesLeft, currentCity) {
-        let bitmask = 0;
-        
-        for (const city in citiesLeft) {
-            bitmask |= 1 << citiesLeft[city];
+        // generate a key for the current state
+        const key = `${currentCity}:${citiesLeft.join(',')}`;
+        // If it has already been done don't recompute it
+        if (memo.has(key)) return memo.get(key);
+        if (citiesLeft.length === 1) {
+            const cost = distance_matrix[currentCity][citiesLeft[0]];
+            memo.set(key, cost);
+            return cost;
         }
-
-        // if it has already been done don't recompute it
-        if (memo[currentCity][bitmask] !== -1) return memo[currentCity][bitmask];
-
-        if (citiesLeft.length === 1) return distance_matrix[currentCity][citiesLeft[0]];
-
         let minCost = Infinity;
-
+        // Recursively calculate the cost for all possible next cities
         for (let i = 0; i < citiesLeft.length; i++) {
             const nextCity = citiesLeft[i];
-            // I learned about filter in functional programming
-            const newCitiesLeft = citiesLeft.filter((_, index) => index !== i);
-            //console.log(citiesLeft, newCitiesLeft, "i = ", i);
+            const newCitiesLeft = [...citiesLeft.slice(0, i), ...citiesLeft.slice(i + 1)]; // Create a deep copy of citiesleft minus ith element
             const cost = distance_matrix[currentCity][nextCity] + heldKarp(newCitiesLeft, nextCity);
-
             minCost = Math.min(minCost, cost);
         }
-        
-        memo[currentCity][bitmask] = minCost;
+        memo.set(key, minCost);
         return minCost;
     }
 
     let minTourCost = Infinity;
-
     for (let start = 0; start < n; start++) {
-        const citiesLeft = Array.from({ length: n }, (_, i) => i).filter((city) => city !== start);
-        minTour = Math.min(minTourCost, heldKarp(citiesLeft, start));
+        let citiesLeft = Array.from({ length: n }, (_, i) => i);
+        citiesLeft = [...citiesLeft.slice(0, start), ...citiesLeft.slice(start + 1)];
+        minTourCost = Math.min(minTourCost, heldKarp(citiesLeft, start));
     }
-
-    return minTour;
+    return minTourCost;
 }
