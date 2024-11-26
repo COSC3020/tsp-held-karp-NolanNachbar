@@ -89,8 +89,7 @@ Adding those up:
 For time complexity, we have $\Theta(n * (n + 2^n * (n + n^2))) \in \Theta(n^3 * 2^n)$.
 
 For memory complexity, we have $\Theta(n * 2^n + n) \in \Theta(n * 2^n)$.
-
-- References
+## References
 
 Most recent edit: I removed the bitmasking and replacing with a map like I did in my local search solution:
 
