@@ -52,38 +52,43 @@ Recall my code (comments and line spaces removed for brevity):
 function tsp_hk(distance_matrix) {
     let n = distance_matrix.length;
     if (n <= 1) return 0;
-    const memo = Array.from({ length: n }, () => Array(1 << n).fill(-1)); // memory complexity of $\Theta(n * 2^n)$ because it's an nx2^n array
+    //In the worst case, this will make map have a memory complexity of \Theta(n * 2^n)
+    //n choices for current city and 2^n subsets 
+    let memo = new Map();
     function heldKarp(citiesLeft, currentCity) {
-        let bitmask = 0;
-        for (const city in citiesLeft) {  // Time  complexity of $\Theta(n)$
-            bitmask |= 1 << citiesLeft[city];
+        const key = `${currentCity}:${citiesLeft.join(',')}`; // Time complexity of O(n)
+        if (memo.has(key)) return memo.get(key);
+        if (citiesLeft.length === 1) {
+            const cost = distance_matrix[currentCity][citiesLeft[0]];
+            memo.set(key, cost);
+            return cost;
         }
-        if (memo[currentCity][bitmask] !== -1) return memo[currentCity][bitmask];
-        if (citiesLeft.length === 1) return distance_matrix[currentCity][citiesLeft[0]];
         let minCost = Infinity;
-        for (let i = 0; i < citiesLeft.length; i++) { // Time  complexity of $\Theta(n)$
+        for (let i = 0; i < citiesLeft.length; i++) { // Time complexity of O(n)
             const nextCity = citiesLeft[i];
-            const newCitiesLeft = citiesLeft.filter((_, index) => index !== i);  // Time  complexity of $\Theta(n)$
-            // Because of dynamic programming and a city is either in the subset or out, there are 2^n recursive calls on the line below
-            const cost = distance_matrix[currentCity][nextCity] + heldKarp(newCitiesLeft, nextCity); // memory and time complexity of $\Theta(2^n)$
+            const newCitiesLeft = [...citiesLeft.slice(0, i), ...citiesLeft.slice(i + 1)]; //Time complexity of O(n)
+            const cost = distance_matrix[currentCity][nextCity] + heldKarp(newCitiesLeft, nextCity);
             minCost = Math.min(minCost, cost);
         }
-        memo[currentCity][bitmask] = minCost;
+        memo.set(key, minCost);
         return minCost;
     }
     let minTourCost = Infinity;
-    for (let start = 0; start < n; start++) { // Time  complexity of $\Theta(n)$
-        const citiesLeft = Array.from({ length: n }, (_, i) => i).filter((city) => city !== start); // memory complexity of $\Theta(n)$
-        minTour = Math.min(minTourCost, heldKarp(citiesLeft, start)); 
+    for (let start = 0; start < n; start++) { //Time complexity of O(n)
+        let citiesLeft = Array.from({ length: n }, (_, i) => i); // Memory complexity of O(n)
+        citiesLeft = [...citiesLeft.slice(0, start), ...citiesLeft.slice(start + 1)]; //time complexity of O(n) 
+        // heldKarp is called with n * 2^n subsets in the worst case so time complexity of \Theta(n * 2^n) 
+        minTourCost = Math.min(minTourCost, heldKarp(citiesLeft, start)); 
     }
-    return minTour;
+    return minTourCost;
 }
 ```
+
 Adding those up:
 
-For time complexity, we have $\Theta(n * (n + n * 2^n)) \in \Theta(n^2 * 2^n)$.
+For time complexity, we have $\Theta(n * (n + 2^n * (n + n^2))) \in \Theta(n^3 * 2^n)$.
 
-For memory complexity, we have $\Theta(n * 2^n + n * (n + 2^n)) \in \Theta(n * 2^n)$.
+For memory complexity, we have $\Theta(n * 2^n + n) \in \Theta(n * 2^n)$.
 
 
 I wrote the non dynamic version using the provided pseudocode but I was stuck on using memoization so I looked at this: 
