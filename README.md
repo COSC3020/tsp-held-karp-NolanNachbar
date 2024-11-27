@@ -56,7 +56,7 @@ function tsp_hk(distance_matrix) {
     //n choices for current city and 2^n subsets 
     let memo = new Map();
     function heldKarp(citiesLeft, currentCity) {
-        const key = `${currentCity}:${citiesLeft.join(',')}`; // Time complexity of O(n)
+        const key = `${currentCity}:${citiesLeft.join(',')}`; // Time complexity of O(n log n)
         if (memo.has(key)) return memo.get(key);
         if (citiesLeft.length === 1) {
             const cost = distance_matrix[currentCity][citiesLeft[0]];
@@ -86,7 +86,7 @@ function tsp_hk(distance_matrix) {
 
 Adding those up:
 
-For time complexity, we have $\Theta(n * (n + 2^n * (n + n^2))) \in \Theta(n^3 * 2^n)$.
+For time complexity, we have $\Theta(n * (n + 2^n * (n \log n + n^2))) \in \Theta(n^3 * 2^n)$.
 
 For memory complexity, we have $\Theta(n * 2^n + n) \in \Theta(n * 2^n)$.
 ## References
