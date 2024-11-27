@@ -3,8 +3,8 @@ function tsp_hk(distance_matrix) {
     if (n <= 1) return 0; // handle cases like the first two test cases
     let memo = new Map();
     function heldKarp(citiesLeft, currentCity) {
-        // generate a key for the current state
-        const key = `${currentCity}:${citiesLeft.join(',')}`;
+        // Sort citiesLeft to ensure the key is order-independent
+        const key = `${currentCity}:${citiesLeft.slice().sort((a, b) => a - b).join(',')}`;
         // If it has already been done don't recompute it
         if (memo.has(key)) return memo.get(key);
         if (citiesLeft.length === 1) {
@@ -16,7 +16,7 @@ function tsp_hk(distance_matrix) {
         // Recursively calculate the cost for all possible next cities
         for (let i = 0; i < citiesLeft.length; i++) {
             const nextCity = citiesLeft[i];
-            const newCitiesLeft = [...citiesLeft.slice(0, i), ...citiesLeft.slice(i + 1)]; // Create a deep copy of citiesleft minus ith element
+            const newCitiesLeft = [...citiesLeft.slice(0, i), ...citiesLeft.slice(i + 1)]; // Create a deep copy of citiesLeft minus ith element
             const cost = distance_matrix[currentCity][nextCity] + heldKarp(newCitiesLeft, nextCity);
             minCost = Math.min(minCost, cost);
         }
